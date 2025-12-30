@@ -16,7 +16,16 @@ export default function RutForm({ onSubmit }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border">
+    <div className="
+    bg-white
+    p-7
+    rounded-3xl
+    shadow-lg shadow-symBlue/10
+    ring-1 ring-gray-200/70
+    transition-transform duration-200
+    hover:-translate-y-0.5
+    hover:shadow-xl
+  ">
       <h1 className="text-2xl font-bold text-symBlue">
         Revisa tus ofertas de pago
       </h1>

@@ -11,11 +11,6 @@ export default function App() {
   const [rut, setRut] = useState("");
   const [debts, setDebts] = useState(null);
 
-  // Flow steps
-  // 0: landing (no debts loaded)
-  // 1: dashboard (lista de ofertas)
-  // 2: seleccionar/confirmar deuda
-  // 3: resumen + redirección
   const [step, setStep] = useState(1);
   const [selectedDebt, setSelectedDebt] = useState(null);
 
@@ -48,23 +43,24 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-[#f7f8ff] to-[#f6f7fb]">
-      <Header />
+      <Header variant={!debts ? "public" : "app"} />
 
       {!debts ? (
-        <main className="max-w-6xl mx-auto px-4 py-10">
+        <main className="max-w-6xl mx-auto px-4 pt-0 pb-10">
           {/* Banner full bleed */}
           <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-12">
             <img
               src={banner}
               alt="Banner portal de pagos"
-              className="w-full h-[260px] sm:h-[340px] md:h-[420px] object-cover"
+              className="w-full h-[260px] sm:h-[340px] md:h-[420px] object-cover block"
             />
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             {/* HERO */}
-            <div className="rounded-3xl border bg-white shadow-sm overflow-hidden">
+            <div className="rounded-3xl bg-white shadow-lg shadow-symBlue/10 ring-1 ring-gray-200/70 overflow-hidden transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl">
               <div className="p-7">
-                <div className="inline-flex items-center gap-2 rounded-full border bg-gray-50 px-3 py-1 text-xs text-gray-600">
+                <div className="inline-flex items-center gap-2 rounded-full bg-symBlue/10 px-3 py-1.5 text-xs font-semibold text-symBlue ring-1 ring-symBlue/20">
                   <span className="h-2 w-2 rounded-full bg-green-500" />
                   Ofertas disponibles para normalización
                 </div>
@@ -79,21 +75,21 @@ export default function App() {
                 </p>
 
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="rounded-2xl border bg-white p-4">
-                    <p className="text-sm font-semibold text-gray-800">Consolidado</p>
-                    <p className="text-xs text-gray-500 mt-1">por acreedor</p>
+                  <div className="rounded-2xl bg-gray-50 p-4 ring-1 ring-gray-200/70">
+                    <p className="text-sm font-semibold text-gray-900">Consolidado</p>
+                    <p className="text-xs text-gray-600 mt-1">por acreedor</p>
                   </div>
-                  <div className="rounded-2xl border bg-white p-4">
-                    <p className="text-sm font-semibold text-gray-800">Ahorro</p>
-                    <p className="text-xs text-gray-500 mt-1">estimado por oferta</p>
+                  <div className="rounded-2xl bg-gray-50 p-4 ring-1 ring-gray-200/70">
+                    <p className="text-sm font-semibold text-gray-900">Ahorro</p>
+                    <p className="text-xs text-gray-600 mt-1">estimado por oferta</p>
                   </div>
-                  <div className="rounded-2xl border bg-white p-4">
-                    <p className="text-sm font-semibold text-gray-800">Redirección</p>
-                    <p className="text-xs text-gray-500 mt-1">directa a pago</p>
+                  <div className="rounded-2xl bg-gray-50 p-4 ring-1 ring-gray-200/70">
+                    <p className="text-sm font-semibold text-gray-900">Redirección</p>
+                    <p className="text-xs text-gray-600 mt-1">directa a pago</p>
                   </div>
                 </div>
 
-                <div className="mt-7 rounded-3xl bg-gradient-to-r from-[#072746] via-[#0b3c6d] to-[#041a2f] p-6 sm:p-7 text-white shadow-lg">
+                <div className="mt-7 rounded-3xl bg-gradient-to-r from-[#072746] via-[#0b3c6d] to-[#041a2f] p-6 sm:p-7 text-white shadow-lg shadow-symBlue/20">
                   <div className="flex items-start gap-3">
                     <div className="mt-0.5 h-9 w-9 shrink-0 rounded-2xl bg-white/10 flex items-center justify-center">
                       <span className="text-base font-bold">i</span>
@@ -135,18 +131,9 @@ export default function App() {
           </footer>
         </main>
       ) : step === 1 ? (
-        <Dashboard
-          rut={rut}
-          debts={debts}
-          onBack={reset}
-          onSelectDebt={goToSelect}
-        />
+        <Dashboard rut={rut} debts={debts} onBack={reset} onSelectDebt={goToSelect} />
       ) : step === 2 ? (
-        <SelectDebt
-          debt={selectedDebt}
-          onBack={backToDashboard}
-          onContinue={goToSummary}
-        />
+        <SelectDebt debt={selectedDebt} onBack={backToDashboard} onContinue={goToSummary} />
       ) : (
         <PaymentSummary debt={selectedDebt} onBack={backToDashboard} />
       )}
