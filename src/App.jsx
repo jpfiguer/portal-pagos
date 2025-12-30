@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import SelectDebt from "./pages/SelectDebt";
 import PaymentSummary from "./pages/PaymentSummary";
 import banner from "./assets/banner.png";
+import bannerMobile from "./assets/bannermovil.png";
 import { mockDebts } from "./data/mockDebts";
 
 export default function App() {
@@ -49,11 +50,14 @@ export default function App() {
         <main className="max-w-6xl mx-auto px-4 pt-0 pb-10">
           {/* Banner full bleed */}
           <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-12">
-            <img
-              src={banner}
-              alt="Banner portal de pagos"
-              className="w-full h-[260px] sm:h-[340px] md:h-[420px] object-cover block"
-            />
+            <picture>
+              <source media="(max-width: 768px)" srcSet={bannerMobile} />
+              <img
+                src={banner}
+                alt="Banner portal de pagos"
+                className="w-full h-[240px] sm:h-[300px] md:h-[420px] object-cover block"
+              />
+            </picture>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
